@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "downloads-organiser"
+version = "0.1.0"
+description = "Sorts the files of a folder into sub-folders by file type, with dry run and undo."
+readme = "README.md"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.14"
+authors = [{ name = "Jens Tirsvad Nielsen" }]
+keywords = ["automation", "files", "organiser", "udemy", "100-days-of-code"]
+# No runtime dependencies: the standard library is enough.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+screenshots = ["pillow>=11"]
+
+[project.scripts]
+downloads-organiser = "downloads_organiser.presentation.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
