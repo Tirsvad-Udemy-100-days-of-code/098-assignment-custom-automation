@@ -62,7 +62,84 @@ Leave the environment with `deactivate`. Delete the `.venv` folder to remove it;
 
 ## ▶️ Run
 
-The command line is added in the next milestone; see the [wiki][wiki] for each step of the lecture.
+With the virtual environment active, make a demo folder, look at the plan, apply it and undo it:
+
+```bash
+downloads-organiser demo demo-downloads
+downloads-organiser demo-downloads
+downloads-organiser demo-downloads --apply
+downloads-organiser undo demo-downloads
+```
+
+Without a folder the tool uses your own `Downloads` folder, so start with the dry run:
+
+```bash
+downloads-organiser
+```
+
+The same functions are available from Python, using the names of the assignment:
+
+```python
+from downloads_organiser import organise_folder, undo_last_run
+
+organise_folder("demo-downloads")               # dry run: returns the planned moves
+organise_folder("demo-downloads", apply=True)   # moves the files
+undo_last_run("demo-downloads")                 # moves them back
+```
+
+Folders: `Images`, `Documents`, `Spreadsheets`, `Presentations`, `Archives`, `Audio`, `Video`, `Installers`, `Code` and `Other`. The rules are in `src/downloads_organiser/constants.py`. Hidden files, unfinished downloads and sub-folders are left alone.
+
+### Lecture steps
+
+The screenshots are made from the real output of the tool by `docs/tools/make_screenshots.py`. The [wiki][wiki] explains what each step taught, in English, Danish and Bahasa Malaysia.
+
+#### Step 1: Plan the project
+
+Decide the safety rules first: dry run, undo, never overwrite.
+
+![Step 1: Plan the project](docs/screenshots/step-01-plan.png)
+
+#### Step 2: Set up the environment
+
+A local `.venv`, an upgraded pip and one `pyproject.toml`.
+
+![Step 2: Set up the environment](docs/screenshots/step-02-setup.png)
+
+#### Step 3: Keep the rules in constants.py
+
+The table of folders and extensions lives in one place.
+
+![Step 3: Keep the rules in constants.py](docs/screenshots/step-03-rules.png)
+
+#### Step 4: Make a demo folder
+
+Made-up sample files, so no private names are ever shown.
+
+![Step 4: Make a demo folder](docs/screenshots/step-04-demo.png)
+
+#### Step 5: Dry run
+
+The default run prints the plan and changes nothing.
+
+![Step 5: Dry run](docs/screenshots/step-05-dry-run.png)
+
+#### Step 6: Apply the moves
+
+`--apply` moves the files and writes the undo log.
+
+![Step 6: Apply the moves](docs/screenshots/step-06-apply.png)
+
+#### Step 7: Undo the run
+
+`undo` moves every file of the last run back.
+
+![Step 7: Undo the run](docs/screenshots/step-07-undo.png)
+
+#### Step 8: Run the tests
+
+pytest on temporary folders is the safety net.
+
+![Step 8: Run the tests](docs/screenshots/step-08-tests.png)
 
 ## 🧪 Tests
 
@@ -71,6 +148,8 @@ With the virtual environment active:
 ```bash
 python -m pytest
 ```
+
+The code is checked with `ruff check`, `ruff format --check` and `mypy`. The API documentation is built with `doxygen Doxyfile` and written to `docs/doxygen/html`.
 
 ## 📄 License
 
