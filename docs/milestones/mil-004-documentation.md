@@ -12,7 +12,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-11-23 | Deprecated | Jens Tirsvad Nielsen | S01 | Initial version | [7e8885e] |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Wiki tasks use the flat `docs/wiki/` layout with a language suffix, as the wiki process requires | pending |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Wiki tasks use the flat `docs/wiki/` layout with a language suffix, as the wiki process requires | [d8f815e] |
 
 ---
 
@@ -74,3 +74,4 @@ README from the framework template, Doxygen comments with generated HTML, a wiki
 [BC-001]: ../business-case.md
 [SA-001]: ../stakeholder-analysis.md
 [7e8885e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/7e8885e982ea8d7edaf1e9ef37b1154799251620
+[d8f815e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/d8f815e4557112acf4dcdd2af30ef6142ee22541

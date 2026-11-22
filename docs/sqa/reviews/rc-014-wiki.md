@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [d8f815e] |
 
 ---
 
@@ -56,3 +56,4 @@ Go-with-conditions: every checkable criterion passes; criterion 14 can be checke
 ---
 
 [QC-WIKI-001]: ../../../framework/qc/artifacts/qc-wiki.md
+[d8f815e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/d8f815e4557112acf4dcdd2af30ef6142ee22541
