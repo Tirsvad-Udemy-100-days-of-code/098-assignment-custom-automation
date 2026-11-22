@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "downloads-organiser"
+version = "0.1.0"
+description = "Sorts the files of a folder into sub-folders by file type, with dry run and undo."
+readme = "README.md"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.14"
+authors = [{ name = "Jens Tirsvad Nielsen" }]
+keywords = ["automation", "files", "organiser", "udemy", "100-days-of-code"]
+# No runtime dependencies: the standard library is enough.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.8", "mypy>=1.13"]
+screenshots = ["pillow>=11"]
+
+[project.scripts]
+downloads-organiser = "downloads_organiser.presentation.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "SIM", "D"]
+ignore = ["D203", "D213", "D212", "D415", "D400", "D205", "D212"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+mypy_path = "src"
