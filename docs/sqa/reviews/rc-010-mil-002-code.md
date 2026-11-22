@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [686d5c7] |
 
 ---
 
@@ -59,3 +59,4 @@ Go: every applicable criterion passes, and the tools named in the evidence were 
 
 [MIL-002]: ../../milestones/mil-002-core-organiser.md
 [QC-PY-001]: ../../../framework/qc/code/qc-programming-python.md
+[686d5c7]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/686d5c75ee1a700de2e55061605d6b19e83b6adb
