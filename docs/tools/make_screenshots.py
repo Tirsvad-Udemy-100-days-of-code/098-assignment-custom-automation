@@ -9,13 +9,18 @@ Usage, from the repository root with the virtual environment active:
     python docs/tools/make_screenshots.py
 """
 
-import os
-import subprocess
+import contextlib
+import io
+import platform
 import sys
 import tempfile
+from collections.abc import Callable
 from pathlib import Path
 
+import pytest
 from PIL import Image, ImageDraw, ImageFont
+
+from downloads_organiser.presentation.cli import main as run_cli
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "docs" / "screenshots"
@@ -65,19 +70,31 @@ def render(title: str, lines: list[str], target: Path) -> None:
     image.save(target)
 
 
-def run(command: list[str], shown: str, cwd: Path) -> list[str]:
-    """@brief Run a command and return the terminal lines it would show.
+def capture(action: Callable[[], object], shown: str, cwd: Path) -> list[str]:
+    """@brief Run an action in a folder and return the terminal lines it would show.
 
-    @param command The real command to run.
+    The action runs inside this process, so no external command is started.
+
+    @param action The code to run; what it writes to standard output is captured.
     @param shown The command as the reader should type it.
     @param cwd The working directory.
     @return The prompt line followed by the output lines.
     """
-    environment = {**os.environ, "PYTHONUTF8": "1"}
-    done = subprocess.run(
-        command, cwd=cwd, capture_output=True, text=True, env=environment, check=False
-    )
-    return [PROMPT + shown, *(done.stdout + done.stderr).rstrip().splitlines()]
+    buffer = io.StringIO()
+    with contextlib.chdir(cwd), contextlib.redirect_stdout(buffer):
+        action()
+    return [PROMPT + shown, *buffer.getvalue().rstrip().splitlines()]
+
+
+def cli(arguments: list[str], shown: str, cwd: Path) -> list[str]:
+    """@brief Run the command line of the tool and return the terminal lines.
+
+    @param arguments The arguments after the program name.
+    @param shown The command as the reader should type it.
+    @param cwd The working directory.
+    @return The prompt line followed by the output lines.
+    """
+    return capture(lambda: run_cli(arguments), shown, cwd)
 
 
 def tree(folder: Path) -> list[str]:
@@ -98,98 +115,65 @@ def main() -> int:
 
     @return The exit code.
     """
-    python = sys.executable
-    tool = [python, "-m", "downloads_organiser"]
     with tempfile.TemporaryDirectory() as temp:
         work = Path(temp)
-        steps: list[tuple[str, str, list[str]]] = []
-        plan_lines = [
+        demo = work / "demo-downloads"
+        plan = [
+            "Plan: five milestones",
             "MIL-001  Project baseline and setup",
             "MIL-002  Core organiser",
             "MIL-003  Command line and demo",
             "MIL-004  Documentation and wiki",
             "MIL-005  Publication",
         ]
-        steps.append(
-            ("01-plan", "Step 1: plan the project", ["Plan: five milestones", *plan_lines])
-        )
-        versions = run([python, "--version"], "python --version", ROOT)
-        pytest_version = run(
-            [python, "-m", "pytest", "--version"], "python -m pytest --version", ROOT
-        )
-        steps.append(
-            (
-                "02-setup",
-                "Step 2: set up the virtual environment",
-                [
-                    PROMPT + "py -3.14 -m venv .venv",
-                    PROMPT + r".\.venv\Scripts\Activate.ps1",
-                    PROMPT + "python -m pip install --upgrade pip",
-                    PROMPT + 'python -m pip install -e ".[dev]"',
-                    *versions,
-                    *pytest_version,
-                ],
-            )
-        )
-        constants = (ROOT / "src/downloads_organiser/constants.py").read_text(encoding="utf-8")
-        excerpt = [line for line in constants.splitlines() if line and not line.startswith("##")][
-            :14
+        setup = [
+            PROMPT + "py -3.14 -m venv .venv",
+            PROMPT + r".\.venv\Scripts\Activate.ps1",
+            PROMPT + "python -m pip install --upgrade pip",
+            PROMPT + 'python -m pip install -e ".[dev]"',
+            PROMPT + "python --version",
+            f"Python {platform.python_version()}",
+            PROMPT + "python -m pytest --version",
+            f"pytest {pytest.__version__}",
         ]
-        steps.append(("03-rules", "Step 3: the rules live in constants.py", excerpt))
+        constants = (ROOT / "src/downloads_organiser/constants.py").read_text(encoding="utf-8")
+        rules = [line for line in constants.splitlines() if line and not line.startswith("##")]
+        listing = [PROMPT + "ls -R demo-downloads"]
+        steps: list[tuple[str, str, list[str]]] = [
+            ("01-plan", "Step 1: plan the project", plan),
+            ("02-setup", "Step 2: set up the virtual environment", setup),
+            ("03-rules", "Step 3: the rules live in constants.py", rules[:14]),
+        ]
         steps.append(
             (
                 "04-demo",
                 "Step 4: make a demo folder",
-                run(
-                    [*tool, "demo", "demo-downloads"],
-                    "downloads-organiser demo demo-downloads",
-                    work,
-                )
-                + [PROMPT + "ls demo-downloads", *tree(work / "demo-downloads")],
+                cli(["demo", "demo-downloads"], "downloads-organiser demo demo-downloads", work)
+                + listing
+                + tree(demo),
             )
         )
         steps.append(
             (
                 "05-dry-run",
                 "Step 5: dry run (nothing changes)",
-                run(
-                    [*tool, "organise", "demo-downloads"],
-                    "downloads-organiser demo-downloads",
-                    work,
-                ),
+                cli(["organise", "demo-downloads"], "downloads-organiser demo-downloads", work),
             )
         )
-        steps.append(
-            (
-                "06-apply",
-                "Step 6: apply the moves",
-                run(
-                    [*tool, "organise", "demo-downloads", "--apply"],
-                    "downloads-organiser demo-downloads --apply",
-                    work,
-                )
-                + [PROMPT + "ls -R demo-downloads", *tree(work / "demo-downloads")],
-            )
+        applied = cli(
+            ["organise", "demo-downloads", "--apply"],
+            "downloads-organiser demo-downloads --apply",
+            work,
         )
-        steps.append(
-            (
-                "07-undo",
-                "Step 7: undo the run",
-                run(
-                    [*tool, "undo", "demo-downloads"],
-                    "downloads-organiser undo demo-downloads",
-                    work,
-                )
-                + [PROMPT + "ls demo-downloads", *tree(work / "demo-downloads")],
-            )
+        steps.append(("06-apply", "Step 6: apply the moves", applied + listing + tree(demo)))
+        undone = cli(["undo", "demo-downloads"], "downloads-organiser undo demo-downloads", work)
+        steps.append(("07-undo", "Step 7: undo the run", undone + listing + tree(demo)))
+        tests = capture(
+            lambda: pytest.main(["-q", "-p", "no:cacheprovider", str(ROOT / "tests")]),
+            "python -m pytest -q",
+            ROOT,
         )
-        steps.append(
-            (
-                "08-tests",
-                "Step 8: run the tests",
-                run([python, "-m", "pytest", "-q"], "python -m pytest -q", ROOT),
-            )
-        )
+        steps.append(("08-tests", "Step 8: run the tests", tests))
         for name, title, lines in steps:
             render(title, lines, OUT / f"step-{name}.png")
             print(f"wrote step-{name}.png")
