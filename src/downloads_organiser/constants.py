@@ -34,7 +34,16 @@ DEFAULT_FOLDER_NAME: Final[str] = "Downloads"
 
 ## @brief Number of sample files per type in the demo folder.
 DEMO_FILES: Final[tuple[str, ...]] = (
-    "holiday.jpg", "logo.png", "report.pdf", "notes.txt", "budget.xlsx",
-    "slides.pptx", "backup.zip", "song.mp3", "clip.mp4", "setup.exe",
-    "script.py", "mystery.xyz",
+    "holiday.jpg",
+    "logo.png",
+    "report.pdf",
+    "notes.txt",
+    "budget.xlsx",
+    "slides.pptx",
+    "backup.zip",
+    "song.mp3",
+    "clip.mp4",
+    "setup.exe",
+    "script.py",
+    "mystery.xyz",
 )

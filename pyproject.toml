@@ -16,7 +16,7 @@ keywords = ["automation", "files", "organiser", "udemy", "100-days-of-code"]
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "ruff>=0.8", "mypy>=1.13"]
 screenshots = ["pillow>=11"]
 
 [project.scripts]
@@ -29,3 +29,20 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "SIM", "D"]
+ignore = ["D203", "D213", "D212", "D415", "D400", "D205", "D212"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+mypy_path = "src"
