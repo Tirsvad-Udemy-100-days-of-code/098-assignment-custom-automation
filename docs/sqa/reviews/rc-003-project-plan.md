@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Proposed | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-23 | Proposed | Jens Tirsvad Nielsen | S01 | Initial version | [7e8885e] |
 
 ---
 
@@ -72,3 +72,4 @@ Go — every criterion passes. The review is not independent: S01 is author, Pro
 [PP-001]: ../../project-plan.md
 [QC-PP-001]: ../../../framework/qc/artifacts/qc-project-plan.md
 [QC-LANG-001]: ../../../framework/qc/artifacts/qc-language-domain.md
+[7e8885e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/7e8885e982ea8d7edaf1e9ef37b1154799251620

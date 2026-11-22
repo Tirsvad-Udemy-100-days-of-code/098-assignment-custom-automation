@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [7e8885e] |
 
 ---
 
@@ -91,3 +91,4 @@ A No-Go on a gateway moves every later gateway and the end date by the days need
 [MIL-003]: ./milestones/mil-003-command-line.md
 [MIL-004]: ./milestones/mil-004-documentation.md
 [MIL-005]: ./milestones/mil-005-publication.md
+[7e8885e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/7e8885e982ea8d7edaf1e9ef37b1154799251620

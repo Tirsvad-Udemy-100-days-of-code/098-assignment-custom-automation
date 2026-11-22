@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [7e8885e] |
 
 ---
 
@@ -131,3 +131,4 @@ Proceed — the scope is small, the risk is controlled by dry run and undo, and 
 ---
 
 [SA-001]: ./stakeholder-analysis.md
+[7e8885e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/7e8885e982ea8d7edaf1e9ef37b1154799251620
