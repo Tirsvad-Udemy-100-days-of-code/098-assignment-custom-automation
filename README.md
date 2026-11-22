@@ -151,6 +151,14 @@ python -m pytest
 
 The code is checked with `ruff check`, `ruff format --check` and `mypy`. The API documentation is built with `doxygen Doxyfile` and written to `docs/doxygen/html`.
 
+### Security scan
+
+Before every push the repository is scanned with opengrep (the pull request check runs the same tool with the organisation rule set):
+
+```powershell
+& "$HOME\.opengrep\cli\latest\opengrep.exe" scan --config auto --exclude framework --error .
+```
+
 ## 📄 License
 
 The project is licensed under the GNU Affero General Public License version 3, see [LICENSE][license].
