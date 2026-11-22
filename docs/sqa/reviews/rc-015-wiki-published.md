@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [6a8c165] |
 
 ---
 
@@ -42,3 +42,4 @@ Go: the only open condition of [RC-014] is met, so the wiki review is a Go. Not 
 
 [RC-014]: ./rc-014-wiki.md
 [QC-WIKI-001]: ../../../framework/qc/artifacts/qc-wiki.md
+[6a8c165]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/098-assignment-custom-automation/commit/6a8c1657c3a03a0e1b9a39b7ab840f00e011cfa1
