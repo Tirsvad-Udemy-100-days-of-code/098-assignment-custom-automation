@@ -11,7 +11,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [7e8885e] |
+| 2026-11-23 | Deprecated | Jens Tirsvad Nielsen | S01 | Initial version | [7e8885e] |
+| 2026-11-23 | Accepted | Jens Tirsvad Nielsen | S01 | Wiki tasks use the flat `docs/wiki/` layout with a language suffix, as the wiki process requires | pending |
 
 ---
 
@@ -63,9 +64,9 @@ README from the framework template, Doxygen comments with generated HTML, a wiki
 | 1 | Add Doxygen comments | Document every module, class and function in `src/` with Doxygen comments (`@brief`, `@param`, `@return`) and check that `doxygen Doxyfile` runs without warnings (Objective 5). | No | |
 | 2 | Write the README | Create `README.md` from `framework/templates/README-template.md`: what it does, requirements, `.venv` setup, how to run the tool and the tests, the lecture steps with screenshots. Check with `check-readme.sh`. | No | |
 | 3 | Capture lecture step screenshots | Render the output of each lecture step (plan, setup, dry run, apply, undo, tests) on the demo folder into PNG files in `docs/screenshots/` with a small drawing script, so no host desktop is used and no private names appear. | No | |
-| 4 | Write the English wiki | Write the wiki pages in `docs/wiki/en/`: home, the lecture steps with screenshots, and what was gained in each step, as `framework/process/wiki.md` requires. | No | |
-| 5 | Write the Danish wiki | Write the same pages in Danish in `docs/wiki/da/`, with the same structure and screenshots as the English pages. | No | |
-| 6 | Write the Bahasa Malaysia wiki | Write the same pages in Bahasa Malaysia in `docs/wiki/ms/`, with the same structure and screenshots as the English pages. | No | |
+| 4 | Write the English wiki | Write the English wiki pages directly in the flat folder `docs/wiki/` (`Home.md`, `Install.md`, `Lecture-Steps.md`, `Reflection.md`, `_Sidebar.md`): the lecture steps with screenshots and what was gained in each step, as `framework/process/wiki.md` requires. | No | |
+| 5 | Write the Danish wiki | Write the same pages in Danish as `Home-da.md`, `Install-da.md`, `Lecture-Steps-da.md` and `Reflection-da.md` in `docs/wiki/`, with the same structure and screenshots as the English pages. | No | |
+| 6 | Write the Bahasa Malaysia wiki | Write the same pages in Bahasa Malaysia as `Home-ms.md`, `Install-ms.md`, `Lecture-Steps-ms.md` and `Reflection-ms.md` in `docs/wiki/`, with the same structure and screenshots as the English pages. | No | |
 | 7 | Write the reflection | Add the course reflection (approach, what was hard and easy, biggest learning, what to do differently) to the wiki in three languages, as the assignment asks. | No | |
 
 ---
